@@ -17,6 +17,10 @@ function draw() {
 		bubbles[i].show();
 	}
 }
+function mousepressed(){
+	var r = random(10,50);
+	var b = new Bubble(mouseX, mouseY, r)
+}
 class Bubble {
 	constructor(x, y, r) {
 		this.x = x;
