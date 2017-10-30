@@ -5,25 +5,30 @@ function setup() {
 	for(var i = 0; i < 10; i++) {
 		var x = random(width);
 		var y = random(height);
-		var r = random(10, 40);
+		var r = random(20, 60);
 		var b = new Bubble(x, y, r);
 		bubbles.push(b);
 	}
 }
+
 function draw() { 
 	background(0); 
 	for (var i = 0; i < bubbles.length; i++) {
 		if(bubbles[i].contains(mouseX, mouseY)) {
-			bubbles[i].changeColor();
+			bubbles[i].changeColor(255);
+		}else {
+			bubbles[i].changeColor(0);
 		}
 		bubbles[i].move();
 		bubbles[i].show();
 	}
 }
-
 function mousepressed(){
-	var r = random(10,50);
-	var b = new Bubble(mouseX, mouseY, r);
+	for(var i = bubbles.length - 1; i >=0; i--){
+		if (bubbles[i].contains(mouseX, mouseY)) {
+			bubbles.splice(i, 1);
+		}
+	}
 }
 
 class Bubble {
@@ -33,8 +38,8 @@ class Bubble {
 		this.r = r;
 		this.brightness = 0;
 	}
-	changeColor() {
-		this.brightness = 255;
+	changeColor(bright) {
+		this.brightness = bright;
 	}
 	
 	contains(px, py){
