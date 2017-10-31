@@ -1,20 +1,22 @@
 var bubbles = [];
-
+var pts = 0;
+var timer = 20;
 function setup() {
 	createCanvas(600, 400); 
-	for(var i = 0; i < 10; i++) {
+	for(var i = 0; i < 20; i++) {
 		var x = random(width);
 		var y = random(height);
 		var r = random(20, 60);
 		var b = new Bubble(x, y, r);
 		bubbles.push(b);
+		setInterval()
 	}
 }
 
 function draw() { 
 	background(0); 
 	for (var i = 0; i < bubbles.length; i++) {
-		if(bubbles[i].contains(mouseX, mouseY)) {
+		if(bubbles[i].rollover(mouseX, mouseY)) {
 			bubbles[i].changeColor(255);
 		}else {
 			bubbles[i].changeColor(0);
@@ -23,9 +25,9 @@ function draw() {
 		bubbles[i].show();
 	}
 }
-function mousepressed(){
+function mousePressed(){
 	for(var i = bubbles.length - 1; i >=0; i--){
-		if (bubbles[i].contains(mouseX, mouseY)) {
+		if (bubbles[i].rollover(mouseX, mouseY)) {
 			bubbles.splice(i, 1);
 		}
 	}
@@ -42,7 +44,7 @@ class Bubble {
 		this.brightness = bright;
 	}
 	
-	contains(px, py){
+	rollover(px, py){
 		var d = dist(px, py, this.x, this.y);
 		if (d < this.r){
 			return true;
@@ -51,8 +53,8 @@ class Bubble {
 		}
 	}
 	move() {
-	  this.x = this.x + random(-5,5);
-	  this.y = this.y + random(-5,5);
+	  this.x = this.x + random(-2,2);
+	  this.y = this.y + random(-2,2);
 	}
 	show() {
 	  stroke(255);
