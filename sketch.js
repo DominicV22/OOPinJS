@@ -1,18 +1,22 @@
 var bubbles = [];
 var pts = 0;
-var timer = 20;
+var timer = 500;
+var gameEnd;
 function setup() {
 	createCanvas(600, 400); 
-	for(var i = 0; i < 20; i++) {
+	for(var i = 0; i < 30; i++) {
 		var x = random(width);
 		var y = random(height);
 		var r = random(20, 60);
 		var b = new Bubble(x, y, r);
 		bubbles.push(b);
-		setInterval()
 	}
 }
-
+function gameEnd() {
+	textSize(32);
+	text("Points", 10, 30);
+	fill(0, 102, 153);
+}
 function draw() { 
 	background(0); 
 	for (var i = 0; i < bubbles.length; i++) {
@@ -62,5 +66,4 @@ class Bubble {
 	  fill(this.brightness, 125);
 	  ellipse(this.x, this.y, this.r * 2, this.r); 
 	}
-
 }
