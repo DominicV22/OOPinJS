@@ -1,7 +1,8 @@
 var bubbles = [];
 var pts = 0;
-var timer = 100;
+var timer = 700;
 var gameEnd;
+var j =30;
 function setup() {
 	createCanvas(600, 400); 
 	for(var i = 0; i < 30; i++) {
@@ -16,19 +17,23 @@ function setup() {
 
 function draw() { 
 	background(0); 
-	textSize(32);
-	text("Points: "+pts, 10, 30);
-	fill(0, 102, 153);
-	text("Timer: "+timer, 10, 60);
-	fill(0, 102, 153);
-	timer = timer -1;
 	if(timer == -1){
-		textSize(0);
-		text("Points: "+pts, 10, 30);
-		fill(0, 1, 0);
-		text("Timer: "+timer, 10, 60);
-		fill(0, 1, 0);
+		textSize(32);
+		text("Points: "+pts, 200, 250);
+		fill(0, 102, 153);
+		text("You couldn't finish in 700 milliseconds", 10, 60);
+		fill(0, 102, 153);
 		timer.html(framcount);
+	}
+	if(j == 0){
+		textSize(32);
+		text("Points: "+pts, 200, 200);
+		fill(0, 102, 153);
+		timer = 700 - timer;
+		text("The time you beaten was in: "+timer+" milliseconds", 10, 225);
+		fill(0, 102, 153);
+		timer.html(framcount);
+		
 	}
 	for (var i = 0; i < bubbles.length; i++) {
 		if(bubbles[i].rollover(mouseX, mouseY)) {
@@ -39,12 +44,19 @@ function draw() {
 		bubbles[i].move();
 		bubbles[i].show();
 	}
+	textSize(32);
+	text("Points: "+pts, 10, 30);
+	fill(0, 102, 153);
+	text("Timer: "+timer, 10, 60);
+	fill(0, 102, 153);
+	timer = timer -1;
 }
 function mousePressed(){
 	for(var i = bubbles.length - 1; i >=0; i--){
 		if (bubbles[i].rollover(mouseX, mouseY)) {
 			bubbles.splice(i, 1);
 			pts = pts + 1;
+			j = j-1;
 			j
 		}
 	}
