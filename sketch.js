@@ -1,6 +1,6 @@
 var bubbles = [];
 var pts = 0;
-var timer = 500;
+var timer = 100;
 var gameEnd;
 function setup() {
 	createCanvas(600, 400); 
@@ -10,15 +10,26 @@ function setup() {
 		var r = random(20, 60);
 		var b = new Bubble(x, y, r);
 		bubbles.push(b);
+		
 	}
 }
-function gameEnd() {
-	textSize(32);
-	text("Points", 10, 30);
-	fill(0, 102, 153);
-}
+
 function draw() { 
 	background(0); 
+	textSize(32);
+	text("Points: "+pts, 10, 30);
+	fill(0, 102, 153);
+	text("Timer: "+timer, 10, 60);
+	fill(0, 102, 153);
+	timer = timer -1;
+	if(timer == -1){
+		textSize(0);
+		text("Points: "+pts, 10, 30);
+		fill(0, 1, 0);
+		text("Timer: "+timer, 10, 60);
+		fill(0, 1, 0);
+		timer.html(framcount);
+	}
 	for (var i = 0; i < bubbles.length; i++) {
 		if(bubbles[i].rollover(mouseX, mouseY)) {
 			bubbles[i].changeColor(255);
@@ -33,6 +44,8 @@ function mousePressed(){
 	for(var i = bubbles.length - 1; i >=0; i--){
 		if (bubbles[i].rollover(mouseX, mouseY)) {
 			bubbles.splice(i, 1);
+			pts = pts + 1;
+			j
 		}
 	}
 }
