@@ -1,10 +1,15 @@
 var bubbles = [];
 var pts = 0;
-var timer = 700;
-var gameEnd;
 var j =30;
+let myTri = {
+	x:200,
+	y:200, r:0
+}
+var gameState="title";
+var clockCounter = 30;
 function setup() {
 	createCanvas(600, 400); 
+	setInterval(clockTick,1000);
 	for(var i = 0; i < 30; i++) {
 		var x = random(width);
 		var y = random(height);
@@ -14,10 +19,40 @@ function setup() {
 		
 	}
 }
-
+function drawTimer(){
+	fill("red");
+	textAlign(left);
+	textSize(32);
+	text("Timer: "+clockCounter, 10, 30);
+	
+	text("Score: "+score, 10, 60);
+}
+function titleScreen(){
+	stroke(white);
+	strokeWeight(4);
+	fill("red");
+	textAlign(CENTER);
+	textSize(32);
+	text("Click anywhere to play", width/2, height/2);
+}
+function clockTick(){
+	if (gameState=="inGame" && clockCounter > 0){
+		clockCounter--;
+	}
+}
 function draw() { 
 	background(0); 
-	if(timer == -1){
+	drawTimer();
+	if (gameState == "title"){
+		titleScreen();
+	} else {
+		/* for (let i=emenyArray.length-1; i>=0;i--;){
+			emenyArray[i].move();
+			emenyArray[i].show();
+			checkForCollision(i);
+		} */
+	}
+	if(timer == 0){
 		textSize(32);
 		text("Points: "+pts, 200, 250);
 		fill(0, 102, 153);
