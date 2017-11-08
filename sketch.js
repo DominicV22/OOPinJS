@@ -19,6 +19,19 @@ function setup() {
 		
 	}
 }
+function checkInput(){
+	if(keyIsDown(LEFT_ARROW))
+		myTri.x-=10;
+	if(keyIsDown(RIGHT_ARROW))
+		myTri.x+=10;
+}
+/* function checkForCollision(target){
+	for (let i=bulletarray.length-1; i>=0;i--){
+		if(emenyArray[target].contains(bulletarray[i].x,bulletarray){
+			
+		}
+	}
+} */
 function drawTimer(){
 	fill("red");
 	textAlign(left);
@@ -28,7 +41,7 @@ function drawTimer(){
 	text("Score: "+score, 10, 60);
 }
 function titleScreen(){
-	stroke(white);
+	stroke("white");
 	strokeWeight(4);
 	fill("red");
 	textAlign(CENTER);
@@ -42,7 +55,6 @@ function clockTick(){
 }
 function draw() { 
 	background(0); 
-	drawTimer();
 	if (gameState == "title"){
 		titleScreen();
 	} else {
@@ -52,22 +64,14 @@ function draw() {
 			checkForCollision(i);
 		} */
 	}
-	if(timer == 0){
-		textSize(32);
-		text("Points: "+pts, 200, 250);
-		fill(0, 102, 153);
-		text("You couldn't finish in 700 milliseconds", 10, 60);
-		fill(0, 102, 153);
-		timer.html(framcount);
-	}
 	if(j == 0){
 		textSize(32);
 		text("Points: "+pts, 200, 200);
 		fill(0, 102, 153);
-		timer = 700 - timer;
-		text("The time you beaten was in: "+timer+" milliseconds", 10, 225);
+		clockCounter = 700 - clockCounter;
+		text("The time you beaten was in: "+clockCounter+" milliseconds", 10, 225);
 		fill(0, 102, 153);
-		timer.html(framcount);
+		clockCounter.html(framcount);
 		
 	}
 	for (var i = 0; i < bubbles.length; i++) {
@@ -82,20 +86,15 @@ function draw() {
 	textSize(32);
 	text("Points: "+pts, 10, 30);
 	fill(0, 102, 153);
-	text("Timer: "+timer, 10, 60);
+	text("Timer: "+clockCounter, 10, 60);
 	fill(0, 102, 153);
-	timer = timer -1;
+	clockCounter = clockCounter -1;
 }
 function mousePressed(){
-	for(var i = bubbles.length - 1; i >=0; i--){
-		if (bubbles[i].rollover(mouseX, mouseY)) {
-			bubbles.splice(i, 1);
-			pts = pts + 1;
-			j = j-1;
-			j
-		}
-	}
+	gameState = "inGame"
 }
+
+
 
 class Bubble {
 	constructor(x, y, r) {
@@ -127,3 +126,10 @@ class Bubble {
 	  ellipse(this.x, this.y, this.r * 2, this.r); 
 	}
 }
+	/* for(var i = bubbles.length - 1; i >=0; i--){
+		if (bubbles[i].rollover(mouseX, mouseY)) {
+			bubbles.splice(i, 1);
+			pts = pts + 1;
+			j = j-1;
+			j */
+			
