@@ -1,11 +1,11 @@
 var bubbles = [];
 var pts = 0;
-var j =30;
 let myTri = {
 	x:200,
 	y:200, r:0
 }
-var gameState="title";
+var gameState="titleScreen";
+
 var clockCounter = 30;
 function setup() {
 	createCanvas(600, 400); 
@@ -15,8 +15,7 @@ function setup() {
 		var y = random(height);
 		var r = random(20, 60);
 		var b = new Bubble(x, y, r);
-		bubbles.push(b);
-		
+		bubbles.push(b);	
 	}
 }
 function checkInput(){
@@ -25,19 +24,11 @@ function checkInput(){
 	if(keyIsDown(RIGHT_ARROW))
 		myTri.x+=10;
 }
-/* function checkForCollision(target){
-	for (let i=bulletarray.length-1; i>=0;i--){
-		if(emenyArray[target].contains(bulletarray[i].x,bulletarray){
-			
-		}
-	}
-} */
 function drawTimer(){
 	fill("red");
-	textAlign(left);
+	textAlign(LEFT);
 	textSize(32);
-	text("Timer: "+clockCounter, 10, 30);
-	
+	text("Timer: "+clockCounter, 10, 30)
 	text("Score: "+score, 10, 60);
 }
 function titleScreen(){
@@ -48,34 +39,34 @@ function titleScreen(){
 	textSize(32);
 	text("Click anywhere to play", width/2, height/2);
 }
+var score=0;
 function clockTick(){
 	if (gameState=="inGame" && clockCounter > 0){
 		clockCounter--;
+		score++;
 	}
 }
 function draw() { 
 	background(0); 
-	if (gameState == "title"){
+	if (gameState == "titlescreen"){
 		titleScreen();
-	} else {
-		/* for (let i=emenyArray.length-1; i>=0;i--;){
-			emenyArray[i].move();
-			emenyArray[i].show();
-			checkForCollision(i);
-		} */
 	}
-	if(j == 0){
-		textSize(32);
-		text("Points: "+pts, 200, 200);
-		fill(0, 102, 153);
-		clockCounter = 700 - clockCounter;
-		text("The time you beaten was in: "+clockCounter+" milliseconds", 10, 225);
-		fill(0, 102, 153);
-		clockCounter.html(framcount);
-		
+function mousePressed(){
+	if(gameState = "titleScreen"){
+		gameState= "inGame";
+	}else{
+		for (let i = bubbles.length - 1; i >= 0; i--) {
+			if (bubbles[i].contains(mouseX, mouseY)) {
+				bubbles.splice(i, 1);
+			}
+		}
 	}
+}
+function inGame(){
+	checkInput();
+	drawTimer();
 	for (var i = 0; i < bubbles.length; i++) {
-		if(bubbles[i].rollover(mouseX, mouseY)) {
+		if(bubbles[i].rollover(mouseX, mouseY)){
 			bubbles[i].changeColor(255);
 		}else {
 			bubbles[i].changeColor(0);
@@ -83,16 +74,9 @@ function draw() {
 		bubbles[i].move();
 		bubbles[i].show();
 	}
-	textSize(32);
-	text("Points: "+pts, 10, 30);
-	fill(0, 102, 153);
-	text("Timer: "+clockCounter, 10, 60);
-	fill(0, 102, 153);
-	clockCounter = clockCounter -1;
 }
-function mousePressed(){
-	gameState = "inGame"
-}
+
+
 
 
 
